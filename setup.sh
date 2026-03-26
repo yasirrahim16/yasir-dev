@@ -1,21 +1,37 @@
 #!/bin/bash
 
-echo "Starting Yasir Setup..."
+clear
+echo "=================================="
+echo "     YASIR RAHIM TOOL"
+echo "=================================="
+echo ""
+echo "[1] Setup Install"
+echo "[2] Run Nmap Scan"
+echo "[3] Exit"
+echo ""
 
-# Update system
-pkg update -y && pkg upgrade -y
+read -p "Choose option: " choice
 
-# Basic packages
-pkg install -y git curl wget nano python
+if [ $choice -eq 1 ]; then
+    echo "Starting Setup..."
+    
+    pkg update -y && pkg upgrade -y
+    pkg install -y git curl wget nano python
+    pkg install -y nmap
+    pip install requests
+    
+    mkdir -p ~/projects
+    mkdir -p ~/tools
+    
+    echo "Setup Completed Successfully!"
 
-# Useful tools
-pkg install -y nmap
+elif [ $choice -eq 2 ]; then
+    read -p "Enter target: " target
+    nmap $target
 
-# Python tools
-pip install requests
+elif [ $choice -eq 3 ]; then
+    exit
 
-# Create folders
-mkdir ~/projects
-mkdir ~/tools
-
-echo "Setup Completed Successfully!"
+else
+    echo "Invalid option"
+fi
